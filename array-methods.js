@@ -110,14 +110,17 @@ const lowerSumStates = Object.entries(stateSums).filter(function (arr) {
   return arr[1] < 1000000;
 }).map(function (elem) {
   return elem[0];
-})
-console.log(lowerSumStates);
+});
 
 /*
   aggregate the sum of each state into one hash table
   `higherStateSums` should be the sum of all states with totals greater than 1,000,000
  */
-var higherStateSums = null;
+const higherStateSums = Object.entries(stateSums).filter(function (arr) {
+  return arr[1] > 1000000;
+}).reduce(function (prevVal, curVal) {
+  return prevVal += curVal[1];
+}, 0);
 
 /*
   from each of the following states:
