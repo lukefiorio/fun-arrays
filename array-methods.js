@@ -6,7 +6,7 @@ var dataset = require("./dataset.json");
   assign the resulting new array to `hundredThousandairs`
 */
 
-const hundredThousandairs = dataset.bankBalances.filter(function(obj) {
+const hundredThousandairs = dataset.bankBalances.filter(function (obj) {
   return obj.amount > 100000;
 });
 
@@ -16,7 +16,7 @@ function add(a, b) {
 }
 
 const sumOfBankBalances = dataset.bankBalances
-  .map(function(obj) {
+  .map(function (obj) {
     return Number(obj.amount);
   })
   .reduce(add);
@@ -34,10 +34,10 @@ const sumOfBankBalances = dataset.bankBalances
  */
 
 const sumOfInterests = dataset.bankBalances
-  .filter(function(obj) {
+  .filter(function (obj) {
     return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(obj.state);
   })
-  .map(function(obj) {
+  .map(function (obj) {
     return Number(obj.amount) * 0.189;
   })
   .reduce(add);
@@ -59,7 +59,7 @@ const sumOfInterests = dataset.bankBalances
   )
  */
 
-const stateSums = dataset.bankBalances.reduce(function(prevVal, curVal) {
+const stateSums = dataset.bankBalances.reduce(function (prevVal, curVal) {
   if (prevVal.hasOwnProperty(curVal.state)) {
     prevVal[curVal.state] += Math.round(Number(curVal.amount));
   }
@@ -86,7 +86,20 @@ const stateSums = dataset.bankBalances.reduce(function(prevVal, curVal) {
     round this number to the nearest dollar before moving on.
   )
  */
-var sumOfHighInterests = null;
+
+var sumOfHighInterests = Object.entries(stateSums)
+  .filter(function (arr) {
+    return !(["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]));
+  })
+  .map(function (elem) {
+    return elem[1] * 0.189;
+  })
+  .reduce(function (prevVal, curVal) {
+    if (curVal <= 50000) {
+      curVal = 0;
+    }
+    return (prevVal += Math.round(curVal));
+  }, 0);
 
 /*
   set `lowerSumStates` to be an array of two letter state
