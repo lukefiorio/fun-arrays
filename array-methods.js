@@ -137,7 +137,14 @@ const higherStateSums = Object.entries(stateSums).filter(function (arr) {
   if true set `areStatesInHigherStateSum` to `true`
   otherwise set it to `false`
  */
-var areStatesInHigherStateSum = null;
+const areStatesInHigherStateSum = Object.entries(stateSums)
+  .filter(function (arr) {
+    return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]);
+  }).every(function (elem) {
+    if (elem[1] > 2550000) {
+      return true;
+    }
+  });
 
 /*
   Stretch Goal && Final Boss
@@ -153,7 +160,14 @@ var areStatesInHigherStateSum = null;
   have a sum of account values greater than 2,550,000
   otherwise set it to be `false`
  */
-var anyStatesInHigherStateSum = null;
+const anyStatesInHigherStateSum = Object.entries(stateSums)
+  .filter(function (arr) {
+    return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]);
+  }).some(function (elem) {
+    if (elem[1] > 2550000) {
+      return true;
+    }
+  });
 
 module.exports = {
   hundredThousandairs: hundredThousandairs,
