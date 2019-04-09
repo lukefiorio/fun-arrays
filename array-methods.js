@@ -87,7 +87,7 @@ const stateSums = dataset.bankBalances.reduce(function (prevVal, curVal) {
   )
  */
 
-var sumOfHighInterests = Object.entries(stateSums)
+const sumOfHighInterests = Object.entries(stateSums)
   .filter(function (arr) {
     return !(["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]));
   })
@@ -106,7 +106,12 @@ var sumOfHighInterests = Object.entries(stateSums)
   abbreviations of each state where the sum of amounts
   in the state is less than 1,000,000
  */
-var lowerSumStates = null;
+const lowerSumStates = Object.entries(stateSums).filter(function (arr) {
+  return arr[1] < 1000000;
+}).map(function (elem) {
+  return elem[0];
+})
+console.log(lowerSumStates);
 
 /*
   aggregate the sum of each state into one hash table
