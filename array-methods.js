@@ -1,4 +1,4 @@
-var dataset = require("./dataset.json");
+var dataset = require('./dataset.json');
 
 /*
   create an array with accounts from bankBalances that are
@@ -108,9 +108,10 @@ const sumOfHighInterests = Object.entries(stateSums)
  */
 const lowerSumStates = Object.entries(stateSums).filter(function (arr) {
   return arr[1] < 1000000;
-}).map(function (elem) {
-  return elem[0];
-});
+})
+  .map(function (elem) {
+    return elem[0];
+  });
 
 /*
   aggregate the sum of each state into one hash table
@@ -118,9 +119,10 @@ const lowerSumStates = Object.entries(stateSums).filter(function (arr) {
  */
 const higherStateSums = Object.entries(stateSums).filter(function (arr) {
   return arr[1] > 1000000;
-}).reduce(function (prevVal, curVal) {
-  return prevVal += curVal[1];
-}, 0);
+})
+  .reduce(function (prevVal, curVal) {
+    return prevVal += curVal[1];
+  }, 0);
 
 /*
   from each of the following states:
@@ -140,10 +142,9 @@ const higherStateSums = Object.entries(stateSums).filter(function (arr) {
 const areStatesInHigherStateSum = Object.entries(stateSums)
   .filter(function (arr) {
     return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]);
-  }).every(function (elem) {
-    if (elem[1] > 2550000) {
-      return true;
-    }
+  })
+  .every(function (elem) {
+    return (elem[1] > 2550000)
   });
 
 /*
@@ -163,10 +164,9 @@ const areStatesInHigherStateSum = Object.entries(stateSums)
 const anyStatesInHigherStateSum = Object.entries(stateSums)
   .filter(function (arr) {
     return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]);
-  }).some(function (elem) {
-    if (elem[1] > 2550000) {
-      return true;
-    }
+  })
+  .some(function (elem) {
+    return (elem[1] > 2550000)
   });
 
 module.exports = {
