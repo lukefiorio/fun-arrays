@@ -6,7 +6,7 @@ var dataset = require('./dataset.json');
   assign the resulting new array to `hundredThousandairs`
 */
 
-const hundredThousandairs = dataset.bankBalances.filter(function (obj) {
+const hundredThousandairs = dataset.bankBalances.filter(function(obj) {
   return obj.amount > 100000;
 });
 
@@ -16,7 +16,7 @@ function add(a, b) {
 }
 
 const sumOfBankBalances = dataset.bankBalances
-  .map(function (obj) {
+  .map(function(obj) {
     return Number(obj.amount);
   })
   .reduce(add);
@@ -34,10 +34,10 @@ const sumOfBankBalances = dataset.bankBalances
  */
 
 const sumOfInterests = dataset.bankBalances
-  .filter(function (obj) {
-    return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(obj.state);
+  .filter(function(obj) {
+    return ['WI', 'IL', 'WY', 'OH', 'GA', 'DE'].includes(obj.state);
   })
-  .map(function (obj) {
+  .map(function(obj) {
     return Number(obj.amount) * 0.189;
   })
   .reduce(add);
@@ -59,7 +59,7 @@ const sumOfInterests = dataset.bankBalances
   )
  */
 
-const stateSums = dataset.bankBalances.reduce(function (prevVal, curVal) {
+const stateSums = dataset.bankBalances.reduce(function(prevVal, curVal) {
   if (prevVal.hasOwnProperty(curVal.state)) {
     prevVal[curVal.state] += Math.round(Number(curVal.amount));
   }
@@ -88,13 +88,13 @@ const stateSums = dataset.bankBalances.reduce(function (prevVal, curVal) {
  */
 
 const sumOfHighInterests = Object.entries(stateSums)
-  .filter(function (arr) {
-    return !(["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]));
+  .filter(function(arr) {
+    return !['WI', 'IL', 'WY', 'OH', 'GA', 'DE'].includes(arr[0]);
   })
-  .map(function (elem) {
+  .map(function(elem) {
     return elem[1] * 0.189;
   })
-  .reduce(function (prevVal, curVal) {
+  .reduce(function(prevVal, curVal) {
     if (curVal <= 50000) {
       curVal = 0;
     }
@@ -106,10 +106,11 @@ const sumOfHighInterests = Object.entries(stateSums)
   abbreviations of each state where the sum of amounts
   in the state is less than 1,000,000
  */
-const lowerSumStates = Object.entries(stateSums).filter(function (arr) {
-  return arr[1] < 1000000;
-})
-  .map(function (elem) {
+const lowerSumStates = Object.entries(stateSums)
+  .filter(function(arr) {
+    return arr[1] < 1000000;
+  })
+  .map(function(elem) {
     return elem[0];
   });
 
@@ -117,11 +118,12 @@ const lowerSumStates = Object.entries(stateSums).filter(function (arr) {
   aggregate the sum of each state into one hash table
   `higherStateSums` should be the sum of all states with totals greater than 1,000,000
  */
-const higherStateSums = Object.entries(stateSums).filter(function (arr) {
-  return arr[1] > 1000000;
-})
-  .reduce(function (prevVal, curVal) {
-    return prevVal += curVal[1];
+const higherStateSums = Object.entries(stateSums)
+  .filter(function(arr) {
+    return arr[1] > 1000000;
+  })
+  .reduce(function(prevVal, curVal) {
+    return (prevVal += curVal[1]);
   }, 0);
 
 /*
@@ -140,11 +142,11 @@ const higherStateSums = Object.entries(stateSums).filter(function (arr) {
   otherwise set it to `false`
  */
 const areStatesInHigherStateSum = Object.entries(stateSums)
-  .filter(function (arr) {
-    return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]);
+  .filter(function(arr) {
+    return ['WI', 'IL', 'WY', 'OH', 'GA', 'DE'].includes(arr[0]);
   })
-  .every(function (elem) {
-    return (elem[1] > 2550000)
+  .every(function(elem) {
+    return elem[1] > 2550000;
   });
 
 /*
@@ -162,11 +164,11 @@ const areStatesInHigherStateSum = Object.entries(stateSums)
   otherwise set it to be `false`
  */
 const anyStatesInHigherStateSum = Object.entries(stateSums)
-  .filter(function (arr) {
-    return ["WI", "IL", "WY", "OH", "GA", "DE"].includes(arr[0]);
+  .filter(function(arr) {
+    return ['WI', 'IL', 'WY', 'OH', 'GA', 'DE'].includes(arr[0]);
   })
-  .some(function (elem) {
-    return (elem[1] > 2550000)
+  .some(function(elem) {
+    return elem[1] > 2550000;
   });
 
 module.exports = {
@@ -178,5 +180,5 @@ module.exports = {
   lowerSumStates: lowerSumStates,
   higherStateSums: higherStateSums,
   areStatesInHigherStateSum: areStatesInHigherStateSum,
-  anyStatesInHigherStateSum: anyStatesInHigherStateSum
+  anyStatesInHigherStateSum: anyStatesInHigherStateSum,
 };
